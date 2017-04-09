@@ -1,0 +1,70 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+<script src="~/protobuf.js"></script>
+<h2>Index</h2>
+
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script type="text/javascript">
+
+
+    protobuf.load("/common.json", function (err, root) {
+        if (err) throw err;
+        // Exemplary payload
+        var payload = { awesomeField: "AwesomeString" };
+
+        // Verify the payload if necessary (i.e. when possibly incomplete or invalid)
+        var errMsg = root.AwesomeMessage.verify(payload);
+        if (errMsg)
+            throw Error(errMsg);
+
+        // Create a new message
+        var message = root.AwesomeMessage.fromObject(payload); // or use .fromObject if conversion is necessary
+
+        // Encode a message to an Uint8Array (browser) or Buffer (node)
+        var buffer = root.AwesomeMessage.encode(message).finish();
+        // ... do something with buffer
+        alert(buffer);
+        // Decode an Uint8Array (browser) or Buffer (node) to a message
+        var message = root.AwesomeMessage.decode(buffer);
+
+        alert(message.awesomeField);
+
+    });
+
+    $.ajax({
+        url: "http://localhost:60339/api/Default/GetMessages",
+        type: "GET",
+        beforeSend: function (xhr) { xhr.setRequestHeader('accept', 'application/x-protobuf'); },
+        success: function (data, textStatus) {
+
+            protobuf.load("/common.json", function (err, root) {
+                if (err) throw err;
+                // Exemplary payload
+                // var payload = { awesomeField: "AwesomeString" };
+
+                // Verify the payload if necessary (i.e. when possibly incomplete or invalid)
+                //var errMsg = root.AwesomeMessage.verify(payload);
+                //if (errMsg)
+                //    throw Error(errMsg);
+
+                // Create a new message
+                //var message = root.AwesomeMessage.fromObject(payload); // or use .fromObject if conversion is necessary
+
+                // Encode a message to an Uint8Array (browser) or Buffer (node)
+                //var buffer = root.AwesomeMessage.encode(message).finish();
+                // ... do something with buffer
+
+                // Decode an Uint8Array (browser) or Buffer (node) to a message
+                var message = root.AwesomeMessage.decode(data);
+
+                alert(message.awesomeField);
+
+            });
+
+        }
+    });
+
+
+</script>
