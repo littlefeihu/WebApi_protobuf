@@ -7,15 +7,17 @@ using System.Net.Http;
 using System.Runtime.Serialization;
 using System.Web.Http;
 using System.Web.Cors;
+using System.Web.Http.Cors;
+
 namespace ProtoBufTest.Controllers
 {
-    //[EnableCors(origins: "http://localhost:57443", headers: "*", methods: "*")]
+
     public class DefaultController : ApiController
     {
 
         public List<Item> GetItem()
         {
-          
+
             return new List<Item> {
                new  Item{  Name="1"},
                new  Item{  Name="2"},
@@ -30,7 +32,7 @@ namespace ProtoBufTest.Controllers
 
         public AwesomeMessage GetMessages()
         {
-            return new AwesomeMessage { awesomeField = "AU" };
+            return new AwesomeMessage { awesomeField = "中华人名共和国" };
         }
 
         public AwesomeMessage PostMessage(AwesomeMessage message)

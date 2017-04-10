@@ -9,30 +9,30 @@
 <script type="text/javascript">
 
 
-    protobuf.load("/common.json", function (err, root) {
-        if (err) throw err;
-        // Exemplary payload
-        var payload = { awesomeField: "AwesomeString" };
+    //protobuf.load("/common.json", function (err, root) {
+    //    if (err) throw err;
+    //    // Exemplary payload
+    //    var payload = { awesomeField: "AwesomeString" };
 
-        // Verify the payload if necessary (i.e. when possibly incomplete or invalid)
-        var errMsg = root.AwesomeMessage.verify(payload);
-        if (errMsg)
-            throw Error(errMsg);
+    //    // Verify the payload if necessary (i.e. when possibly incomplete or invalid)
+    //    var errMsg = root.AwesomeMessage.verify(payload);
+    //    if (errMsg)
+    //        throw Error(errMsg);
 
-        // Create a new message
-        var message = root.AwesomeMessage.fromObject(payload); // or use .fromObject if conversion is necessary
+    //    // Create a new message
+    //    var message = root.AwesomeMessage.fromObject(payload); // or use .fromObject if conversion is necessary
 
-        // Encode a message to an Uint8Array (browser) or Buffer (node)
-        var buffer = root.AwesomeMessage.encode(message).finish();
-        // ... do something with buffer
-        alert(buffer);
-        // Decode an Uint8Array (browser) or Buffer (node) to a message
-        var message = root.AwesomeMessage.decode(buffer);
+    //    // Encode a message to an Uint8Array (browser) or Buffer (node)
+    //    var buffer = root.AwesomeMessage.encode(message).finish();
+    //    // ... do something with buffer
+    //    alert(buffer);
+    //    // Decode an Uint8Array (browser) or Buffer (node) to a message
+    //    var message = root.AwesomeMessage.decode(buffer);
 
-        alert(message.awesomeField);
+    //    alert(message.awesomeField);
 
-    });
-
+    //});
+    jQuery.support.cors = true;
     $.ajax({
         url: "http://localhost:60339/api/Default/GetMessages",
         type: "GET",
@@ -41,24 +41,26 @@
 
             protobuf.load("/common.json", function (err, root) {
                 if (err) throw err;
+            
                 // Exemplary payload
-                // var payload = { awesomeField: "AwesomeString" };
+                 var payload = { awesomeField: "dsadsa" };
 
                 // Verify the payload if necessary (i.e. when possibly incomplete or invalid)
-                //var errMsg = root.AwesomeMessage.verify(payload);
-                //if (errMsg)
-                //    throw Error(errMsg);
+                var errMsg = root.AwesomeMessage.verify(payload);
+                if (errMsg)
+                    throw Error(errMsg);
 
                 // Create a new message
-                //var message = root.AwesomeMessage.fromObject(payload); // or use .fromObject if conversion is necessary
+                var message = root.AwesomeMessage.fromObject(payload); // or use .fromObject if conversion is necessary
 
                 // Encode a message to an Uint8Array (browser) or Buffer (node)
-                //var buffer = root.AwesomeMessage.encode(message).finish();
+                var buffer = root.AwesomeMessage.encode(message).finish();
                 // ... do something with buffer
 
                 // Decode an Uint8Array (browser) or Buffer (node) to a message
-                var message = root.AwesomeMessage.decode(data);
-
+           
+                var message = root.AwesomeMessage.decode(buffer);
+         
                 alert(message.awesomeField);
 
             });
@@ -66,5 +68,13 @@
         }
     });
 
+    $.ajax({
+        url: "http://localhost:60339/api/Default/GetMessages",
+        type: "GET",
+        beforeSend: function (xhr) { xhr.setRequestHeader('accept', 'application/json'); },
+        success: function (data, textStatus) {
+            //alert(data);
 
+        }
+    });
 </script>
